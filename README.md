@@ -1,70 +1,55 @@
-
 # 🛡️ SOC 2 Type II Readiness Assessment — North Productions
 
 ### 📊 Project Overview
 This project simulates a **SOC 2 Type II Security Trust Criteria Readiness Assessment** for **North Productions**, a fictional SaaS company that provides **data-visualization dashboards** to small and midsize businesses.  
-The goal was to identify **security control gaps** in the company’s AWS infrastructure and provide **remediation recommendations** aligned with SOC 2 principles.
+The objective was to evaluate five key **Security controls** within the AWS environment, identify **gaps**, and recommend **remediation measures** to align with SOC 2 requirements.
 
 ---
 
 ### ☁️ Environment Architecture
 
 **AWS Services Deployed**
-- **EC2** — Application tier hosting the web analytics app  
-- **RDS (PostgreSQL)** — Structured database tier  
-- **S3** — Secure storage for reports and customer datasets  
-- **IAM** — Access control and role-based permissions  
+- **EC2** — Application tier hosting the analytics application  
+- **RDS (PostgreSQL)** — Database tier for structured storage  
+- **S3** — Storage for log files, exports, and customer datasets  
+- **IAM** — Access control and role management  
 - **CloudTrail** — Logging and monitoring across all regions  
 
-![AWS Diagram](assets/aws-architecture-diagram.png)
+📎 **Appendix C: [AWS Architecture Diagram (Draw.io)](https://app.diagrams.net/)**
 
 ---
 
-### 🔍 Control Mapping & Gap Analysis
-
-Ten key SOC 2 controls were evaluated under the **Security** category:
+### 🔍 SOC 2 Control Mapping & Gap Analysis (5 Controls)
 
 | **SOC 2 Requirement** | **Current State** | **Gap Identified** | **Remediation Recommendation** |
 |------------------------|------------------|--------------------|--------------------------------|
-| Access control & MFA | IAM users without enforced MFA | MFA not required for console logins | Enforce MFA via IAM policy |
-| Encryption (in transit & at rest) | S3 bucket encryption off | Data unencrypted at rest | Enable default KMS encryption |
-| Logging & Monitoring | CloudTrail configured in single region | Missing multi-region coverage | Enable all-region trail |
-| Change Management | No version control for infra changes | Lack of change documentation | Use AWS Config & Git versioning |
-| Incident Response | No IR policy or contact flow | Undefined escalation procedures | Create IR runbook and escalation contacts |
-| Vendor Risk Management | No vendor risk evaluation | Third-party risks untracked | Develop vendor assessment checklist |
-| Security Awareness Training | No training tracking | Employees untrained on AWS security | Launch annual awareness training |
-| Backup & Recovery | RDS automated backups enabled | No DR testing | Implement backup validation tests |
-| Configuration Management | No config baselines | Manual setup | Use IaC tools (CloudFormation) |
-| Vulnerability Management | No routine scans | Missing patch management plan | Schedule monthly Nessus scans |
+| **Access Control / MFA** | Root and IAM users have MFA enabled. No unused access keys. Access Analyzer clean. | None – compliant with SOC 2 access control requirements. | Maintain MFA enforcement and regularly review IAM reports. |
+| **Encryption (At Rest & In Transit)** | S3 bucket uses SSE-KMS encryption; HTTPS enforced. | Block all public access = Off. | Enable “Block Public Access” and enforce least privilege for S3. |
+| **Logging & Monitoring (CloudTrail)** | CloudTrail enabled for all regions. Verified events (RunInstances, ConsoleLogin) in np-cloudtrail-logs bucket. | No log file validation or alerting for suspicious events. | Enable CloudTrail file validation and integrate alerts with CloudWatch. |
+| **Configuration Management** | EC2 NP-App-Server uses key pair auth; ports 22 (admin IP) & 80 (public) configured. | No AWS Inspector or automated patching. | Enable AWS Inspector and schedule patch management. |
+| **Backup & Recovery** | RDS encrypted (KMS); backups enabled (1 day); private VPC, not public. | No long-term retention. | Increase backup retention period and test disaster recovery. |
 
-📄 **Full Matrix:** [`deliverables/SOC2_Gap_Matrix.xlsx`](deliverables/SOC2_Gap_Matrix.xlsx)
+📊 **Appendix A: [SOC 2 Gap Matrix (Google Sheets)](https://docs.google.com/spreadsheets/d/11rA7AnW-QVJV6NnFWMsYKE1izoHkkJRaBJn3qQr3TUw/edit?gid=0#gid=0)**
 
 ---
 
 ### 🧠 Key Findings
-- Encryption at rest not enforced in S3 → potential data exposure risk  
-- MFA not applied to all IAM users → identity compromise vulnerability  
-- CloudTrail not configured for all regions → incomplete visibility  
-- Absence of a formal incident response plan  
+- CloudTrail lacks event validation and automated alerting.  
+- S3 bucket allows potential public access misconfigurations.  
+- EC2 lacks automated patching and inspection.  
+- RDS backup retention period insufficient for SOC 2 audit readiness.  
+- MFA properly enforced — fully compliant. ✅
 
 ---
 
 ### 🛠️ Remediation Actions
-1. **Enabled KMS encryption** on all S3 buckets  
-2. **Configured CloudTrail** for multi-region logging  
-3. **Created IAM policies** enforcing MFA and least privilege  
-4. **Documented** Incident Response Plan & Change Management process  
+1. **Enable CloudTrail file validation** and link with CloudWatch alarms for real-time detection.  
+2. **Block all public access** in S3 and review bucket policies.  
+3. **Enable AWS Inspector** for vulnerability management.  
+4. **Increase RDS backup retention** to 7–14 days.  
+5. **Maintain IAM security hygiene** by auditing access reports monthly.  
 
----
-
-### 📁 Evidence Artifacts
-
-| **Control** | **Screenshot / Artifact** |
-|--------------|---------------------------|
-| Encryption | ![S3 Encryption Proof](assets/s3-encryption-proof.png) |
-| CloudTrail Logging | ![CloudTrail Evidence](assets/evidence-cloudtrail.png) |
-| IAM Policy | Included in SOC2_Gap_Analysis_Report.pdf |
-| Backup Verification | RDS snapshot logs attached |
+📘 **Appendix B: [Remediation Document (Google Docs)](https://docs.google.com/document/d/1cWF8hqM0PfCvqfKXUy6i4yYLtB13vaN5sAwffrnii08/edit?tab=t.0)**
 
 ---
 
@@ -72,25 +57,36 @@ Ten key SOC 2 controls were evaluated under the **Security** category:
 
 | **Category** | **Tools / Services** |
 |---------------|----------------------|
-| Cloud Infrastructure | AWS (EC2, S3, RDS, IAM, CloudTrail, KMS) |
-| Compliance Framework | SOC 2 Type II (Security) |
-| Documentation | Google Docs, Excel, PDF Export |
-| Visualization | Draw.io / Lucidchart for architecture diagram |
+| Cloud Infrastructure | AWS (EC2, RDS, S3, IAM, CloudTrail, KMS) |
+| Compliance Framework | SOC 2 Type II — Security Trust Criteria |
+| Documentation | Google Docs, Google Sheets |
+| Visualization | Draw.io (Architecture Diagram) |
 
 ---
 
 ### 🚀 Learning Outcomes
-- Developed understanding of **SOC 2 control frameworks**  
-- Gained hands-on experience with **AWS security best practices**  
-- Practiced **gap identification and remediation planning**  
-- Built professional deliverables for a **compliance readiness assessment**
+- Built a secure **AWS environment** aligned with SOC 2 principles.  
+- Gained hands-on practice with **IAM, CloudTrail, and encryption** controls.  
+- Learned to perform **gap analysis** and write professional remediation reports.  
+- Strengthened understanding of **compliance readiness** in cloud environments.
 
 ---
 
-### 📦 Deliverables
-- **SOC 2 Gap Matrix:** [`SOC2_Gap_Matrix.xlsx`](deliverables/SOC2_Gap_Matrix.xlsx)  
-- **Gap Analysis Report:** [`SOC2_Gap_Analysis_Report.pdf`](deliverables/SOC2_Gap_Analysis_Report.pdf)
+### 📎 Appendices
+
+- **Appendix A:** [SOC 2 Gap Matrix (Google Sheets)](https://docs.google.com/spreadsheets/d/11rA7AnW-QVJV6NnFWMsYKE1izoHkkJRaBJn3qQr3TUw/edit?gid=0#gid=0)  
+- **Appendix B:** [Remediation Document (Google Docs)](https://docs.google.com/document/d/1cWF8hqM0PfCvqfKXUy6i4yYLtB13vaN5sAwffrnii08/edit?tab=t.0)  
+- **Appendix C:** [AWS Architecture Diagram (Draw.io)](https://app.diagrams.net/)  
+- **Appendix D:** [Main Project Documentation](https://docs.google.com/document/d/1aV9Q5bweXURxLm2gLSGd5M5Qu8816_ajuNVxvDYrvdM/edit?tab=t.0)
 
 ---
 
-### 🧩 Folder Structure
+### 👤 Author
+**Aymen Kiyar**  
+📍 Northern Virginia  
+📧 aymenkiyar950@gmail.com  
+🌐 https://www.linkedin.com/in/aymen-kiyar/ 
+
+---
+
+⭐ *If you found this project helpful or insightful, consider starring the repo!*
