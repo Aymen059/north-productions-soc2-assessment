@@ -1,6 +1,6 @@
-# 🛡️ SOC 2 Type II Readiness Assessment — North Productions
+# SOC 2 Type II Readiness Assessment — North Productions
 
-### 📊 Project Overview
+###  Project Overview
 This project simulates a **SOC 2 Type II Security Trust Criteria Readiness Assessment** for **North Productions**, a fictional SaaS company that provides **data-visualization dashboards** to small and midsize businesses.  
 The objective was to evaluate five key **Security controls** within the AWS environment, identify **gaps**, and recommend **remediation measures** to align with SOC 2 requirements.
 
@@ -19,7 +19,7 @@ The objective was to evaluate five key **Security controls** within the AWS envi
 
 ---
 
-### 🔍 SOC 2 Control Mapping & Gap Analysis (5 Controls)
+###  SOC 2 Control Mapping & Gap Analysis (5 Controls)
 
 | **SOC 2 Requirement** | **Current State** | **Gap Identified** | **Remediation Recommendation** |
 |------------------------|------------------|--------------------|--------------------------------|
@@ -29,11 +29,11 @@ The objective was to evaluate five key **Security controls** within the AWS envi
 | **Configuration Management** | EC2 NP-App-Server uses key pair auth; ports 22 (admin IP) & 80 (public) configured. | No AWS Inspector or automated patching. | Enable AWS Inspector and schedule patch management. |
 | **Backup & Recovery** | RDS encrypted (KMS); backups enabled (1 day); private VPC, not public. | No long-term retention. | Increase backup retention period and test disaster recovery. |
 
-📊 **Appendix A: [SOC 2 Gap Matrix (Google Sheets)](https://docs.google.com/spreadsheets/d/11rA7AnW-QVJV6NnFWMsYKE1izoHkkJRaBJn3qQr3TUw/edit?gid=0#gid=0)**
+ **Appendix A: [SOC 2 Gap Matrix (Google Sheets)](https://docs.google.com/spreadsheets/d/11rA7AnW-QVJV6NnFWMsYKE1izoHkkJRaBJn3qQr3TUw/edit?gid=0#gid=0)**
 
 ---
 
-### 🧠 Key Findings
+###  Key Findings
 - CloudTrail lacks event validation and automated alerting.  
 - S3 bucket allows potential public access misconfigurations.  
 - EC2 lacks automated patching and inspection.  
@@ -49,11 +49,11 @@ The objective was to evaluate five key **Security controls** within the AWS envi
 4. **Increase RDS backup retention** to 7–14 days.  
 5. **Maintain IAM security hygiene** by auditing access reports monthly.  
 
-📘 **Appendix B: [Remediation Document (Google Docs)](https://docs.google.com/document/d/1cWF8hqM0PfCvqfKXUy6i4yYLtB13vaN5sAwffrnii08/edit?tab=t.0)**
+ **Appendix B: [Remediation Document (Google Docs)](https://docs.google.com/document/d/1cWF8hqM0PfCvqfKXUy6i4yYLtB13vaN5sAwffrnii08/edit?tab=t.0)**
 
 ---
 
-### 🧰 Tools Used
+### Tools Used
 
 | **Category** | **Tools / Services** |
 |---------------|----------------------|
@@ -64,7 +64,7 @@ The objective was to evaluate five key **Security controls** within the AWS envi
 
 ---
 
-### 🚀 Learning Outcomes
+###  Learning Outcomes
 - Built a secure **AWS environment** aligned with SOC 2 principles.  
 - Gained hands-on practice with **IAM, CloudTrail, and encryption** controls.  
 - Learned to perform **gap analysis** and write professional remediation reports.  
@@ -72,7 +72,7 @@ The objective was to evaluate five key **Security controls** within the AWS envi
 
 ---
 
-### 📎 Appendices
+### Appendices
 
 - **Appendix A:** [SOC 2 Gap Matrix (Google Sheets)](https://docs.google.com/spreadsheets/d/11rA7AnW-QVJV6NnFWMsYKE1izoHkkJRaBJn3qQr3TUw/edit?gid=0#gid=0)  
 - **Appendix B:** [Remediation Document (Google Docs)](https://docs.google.com/document/d/1cWF8hqM0PfCvqfKXUy6i4yYLtB13vaN5sAwffrnii08/edit?tab=t.0)  
@@ -83,10 +83,9 @@ The objective was to evaluate five key **Security controls** within the AWS envi
 
 ### 👤 Author
 **Aymen Kiyar**  
-📍 Northern Virginia  
-📧 aymenkiyar950@gmail.com  
-🌐 https://www.linkedin.com/in/aymen-kiyar/ 
+Northern Virginia  
+ aymenkiyar950@gmail.com  
+ https://www.linkedin.com/in/aymen-kiyar/ 
 
 ---
 
-⭐ *If you found this project helpful or insightful, consider starring the repo!*
